@@ -18,6 +18,7 @@ class ColorListTile extends StatelessWidget {
       leading: Radio(
           value: colorName,
           groupValue: pickedColor,
+          activeColor: Theme.of(context).primaryColor,
           onChanged: (clr) {
             String color = clr.toString();
             chooseColor(color);

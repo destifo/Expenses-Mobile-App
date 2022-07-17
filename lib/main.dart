@@ -52,6 +52,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: pickedColor,
+        accentColor: Colors.amber,
       ),
       home: MyHomePage(
         transactions: transactions,

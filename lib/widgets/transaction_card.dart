@@ -33,10 +33,10 @@ class TransactionCard extends StatelessWidget {
                 padding: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: Colors.purple,
-                    width: 2,
+                    color: Theme.of(context).primaryColor,
+                    width: 3,
                   ),
-                  color: Colors.amber,
+                  color: Theme.of(context).accentColor,
                 ),
                 child: Text(
                   '\$${transactionAmount.toStringAsFixed(2)}',
