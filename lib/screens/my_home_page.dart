@@ -1,10 +1,10 @@
+import 'package:expenses_app_restarted/widgets/chart.dart';
 import 'package:flutter/material.dart';
 
 import '../models/transaction.dart';
 import '../widgets/add_transaction.dart';
 import '../widgets/choose_color.dart';
 import '../widgets/transaction_list.dart';
-import '../widgets/user_transactions.dart';
 
 class MyHomePage extends StatelessWidget {
   final String title;
@@ -17,7 +17,8 @@ class MyHomePage extends StatelessWidget {
   MyHomePage(
       {required this.title,
       required this.addTransaction,
-      required this.changeColor, required this.transactions});
+      required this.changeColor,
+      required this.transactions});
 
   void _openTransactionEntry(BuildContext ctx) {
     showModalBottomSheet(
@@ -35,9 +36,14 @@ class MyHomePage extends StatelessWidget {
         });
   }
 
+  List<Transaction> get _recentTransactions {
+    return transactions.where((tx) {
+      return tx.date.isAfter(DateTime.now().subtract(const Duration(days: 7)));
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -57,11 +63,8 @@ class MyHomePage extends StatelessWidget {
             Container(
               width: double.infinity,
               margin: const EdgeInsets.all(10),
-              child: const Card(
-                child: Text(
-                  "Chart",
-                  textAlign: TextAlign.center,
-                ),
+              child: Chart(
+                recentTransactions: _recentTransactions,
               ),
             ),
             TransactionList(transactions: transactions)

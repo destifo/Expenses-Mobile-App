@@ -14,7 +14,10 @@ class ColorListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(colorName),
+      title: Text(
+        colorName,
+        style: TextStyle(fontSize: 18),
+      ),
       leading: Radio(
           value: colorName,
           groupValue: pickedColor,

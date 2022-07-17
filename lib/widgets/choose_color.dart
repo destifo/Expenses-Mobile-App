@@ -25,9 +25,19 @@ class _ChooseColorState extends State<ChooseColor> {
       child: Form(
           child: Column(
         children: [
+          const SizedBox(
+            height: 35,
+          ),
           const Text(
-            'Choose app color',
+            'Choose app\'s theme color',
             textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: 'QuickSand',
+              fontSize: 20,
+            ),
+          ),
+          const SizedBox(
+            height: 35,
           ),
           ColorListTile(
               colorName: 'Purple',

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:expenses_app_restarted/models/transaction.dart';
 import 'package:expenses_app_restarted/widgets/add_transaction.dart';
 import 'package:expenses_app_restarted/widgets/transaction_card.dart';
@@ -28,8 +30,8 @@ class _MyAppState extends State<MyApp> {
   };
 
   final List<Transaction> transactions = [
-    Transaction(title: 'Shoe', id: 001, amount: 20.3),
-    Transaction(title: "tshirt", id: 001, amount: 12.4),
+    // Transaction(title: 'Shoe', id: 001, amount: 20.3),
+    // Transaction(title: "tshirt", id: 001, amount: 12.4),
   ];
 
   void _addTransaction(String title, double amount) {
@@ -51,9 +53,21 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: pickedColor,
-        accentColor: Colors.amber,
-      ),
+          primarySwatch: pickedColor,
+          accentColor: Colors.amber,
+          fontFamily: 'QuickSand',
+          textTheme: ThemeData.light().textTheme.copyWith(
+                titleMedium: const TextStyle(
+                  fontFamily: 'Open Sans',
+                  fontSize: 18,
+                ),
+              ),
+          appBarTheme: AppBarTheme(
+              textTheme: ThemeData.light().textTheme.copyWith(
+                      titleMedium: const TextStyle(
+                    fontFamily: 'Open Sans',
+                    fontSize: 19,
+                  )))),
       home: MyHomePage(
         transactions: transactions,
         title: 'My Expenses',
