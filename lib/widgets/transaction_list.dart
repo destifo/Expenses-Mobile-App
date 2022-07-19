@@ -3,8 +3,8 @@ import 'package:expenses_app_restarted/widgets/transaction_card.dart';
 import 'package:flutter/material.dart';
 
 class TransactionList extends StatelessWidget {
-  TransactionList({required this.transactions});
-
+  TransactionList({required this.transactions, required this.deleteTx});
+  final Function(String id) deleteTx;
   final List<Transaction> transactions;
 
   @override
@@ -37,7 +37,8 @@ class TransactionList extends StatelessWidget {
                 return TransactionCard(
                     transactionTitle: e.title,
                     date: e.date,
-                    transactionAmount: e.amount);
+                    transactionAmount: e.amount, 
+                    deleteTx: deleteTx, id: e.id,);
               },
               // shrinkWrap: true,
               // children: transactions.map((e) {}).toList(),

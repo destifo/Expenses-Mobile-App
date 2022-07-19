@@ -6,11 +6,15 @@ class TransactionCard extends StatelessWidget {
   final String transactionTitle;
   final double transactionAmount;
   final DateTime date;
+  final Function(String id) deleteTx;
+  final String id;
 
   TransactionCard(
       {required this.transactionTitle,
       required this.date,
-      required this.transactionAmount});
+      required this.transactionAmount,
+      required this.deleteTx,
+      required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +34,7 @@ class TransactionCard extends StatelessWidget {
                   color: Theme.of(context).primaryColor,
                   width: 3,
                 ),
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).colorScheme.secondary,
               ),
               child: Text(
                 '\$${transactionAmount.toStringAsFixed(2)}',
@@ -51,6 +55,15 @@ class TransactionCard extends StatelessWidget {
               DateFormat.yMMMd().format(date),
               style: TextStyle(color: Colors.grey[600], fontSize: 15),
             ),
+            trailing: IconButton(
+                onPressed: () {
+                  deleteTx(id);
+                },
+                icon: Icon(
+                  Icons.delete,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 28,
+                )),
           ),
         ),
       ),

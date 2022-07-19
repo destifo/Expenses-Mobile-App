@@ -8,8 +8,10 @@ import '../widgets/transaction_list.dart';
 
 class MyHomePage extends StatelessWidget {
   final String title;
-  final Function(String title, double amount) addTransaction;
+  final Function(String title, double amount, DateTime selectedDate)
+      addTransaction;
   final Function(String color) changeColor;
+  final Function(String id) deleteTx;
   // final titleController = TextEditingController();
   // final amountController = TextEditingController();
   final List<Transaction> transactions;
@@ -18,7 +20,8 @@ class MyHomePage extends StatelessWidget {
       {required this.title,
       required this.addTransaction,
       required this.changeColor,
-      required this.transactions});
+      required this.transactions,
+      required this.deleteTx});
 
   void _openTransactionEntry(BuildContext ctx) {
     showModalBottomSheet(
@@ -67,7 +70,10 @@ class MyHomePage extends StatelessWidget {
                 recentTransactions: _recentTransactions,
               ),
             ),
-            TransactionList(transactions: transactions)
+            TransactionList(
+              transactions: transactions,
+              deleteTx: deleteTx,
+            )
           ],
         ),
       ),

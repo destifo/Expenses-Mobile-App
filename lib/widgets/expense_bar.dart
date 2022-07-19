@@ -15,13 +15,17 @@ class ExpenseBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 55,
+      width: 50,
       child: Column(
         children: [
-          FittedBox(
-            child: Text(
-              totSpending,
-              style: Theme.of(context).textTheme.bodyLarge,
+          Container(
+            height: 20,
+            margin: const EdgeInsets.symmetric(horizontal: 5),
+            child: FittedBox(
+              child: Text(
+                '\$${totSpending}',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
             ),
           ),
           const SizedBox(

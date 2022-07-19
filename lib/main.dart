@@ -34,12 +34,16 @@ class _MyAppState extends State<MyApp> {
     // Transaction(title: "tshirt", id: 001, amount: 12.4),
   ];
 
-  void _addTransaction(String title, double amount) {
+  void _addTransaction(String title, double amount, DateTime selectedDate) {
     Transaction tx =
-        Transaction(title: title, id: transactions.length + 1, amount: amount);
+        Transaction(title: title, amount: amount, date: selectedDate);
     setState(() {
       transactions.add(tx);
     });
+  }
+
+  void _deleteTransaction(String id) {
+    transactions.removeWhere((tx) => tx.id == id);
   }
 
   void _changeColor(String color) {
@@ -73,6 +77,7 @@ class _MyAppState extends State<MyApp> {
         title: 'My Expenses',
         addTransaction: _addTransaction,
         changeColor: _changeColor,
+        deleteTx: _deleteTransaction,
       ),
     );
   }
