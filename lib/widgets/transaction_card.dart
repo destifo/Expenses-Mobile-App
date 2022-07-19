@@ -17,56 +17,40 @@ class TransactionCard extends StatelessWidget {
     // TODO: implement build
     return Container(
       padding: EdgeInsets.symmetric(vertical: 3, horizontal: 16),
-      height: 80,
       child: Card(
         elevation: 7,
         child: Container(
           // TODO: apply margin and padding
-          padding: const EdgeInsets.all(10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              // const SizedBox(
-              //   width: 15,
-              // ),
-              Container(
-                padding: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Theme.of(context).primaryColor,
-                    width: 3,
-                  ),
-                  color: Theme.of(context).accentColor,
+          // padding: const EdgeInsets.all(10),
+          child: ListTile(
+            leading: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Theme.of(context).primaryColor,
+                  width: 3,
                 ),
-                child: Text(
-                  '\$${transactionAmount.toStringAsFixed(2)}',
-                  style: const TextStyle(
-                    fontSize: 21,
-                    fontWeight: FontWeight.bold,
-                  ),
+                color: Theme.of(context).accentColor,
+              ),
+              child: Text(
+                '\$${transactionAmount.toStringAsFixed(2)}',
+                style: const TextStyle(
+                  fontSize: 21,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    transactionTitle,
-                    style: const TextStyle(
-                      fontSize: 19,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Text(
-                    DateFormat.yMMMd().format(date),
-                    style: TextStyle(color: Colors.grey[600], fontSize: 15),
-                  ),
-                ],
+            ),
+            title: Text(
+              transactionTitle,
+              style: const TextStyle(
+                fontSize: 19,
+                fontWeight: FontWeight.w600,
               ),
-              // const SizedBox(
-              //   width: 35,
-              // ),
-            ],
+            ),
+            subtitle: Text(
+              DateFormat.yMMMd().format(date),
+              style: TextStyle(color: Colors.grey[600], fontSize: 15),
+            ),
           ),
         ),
       ),
