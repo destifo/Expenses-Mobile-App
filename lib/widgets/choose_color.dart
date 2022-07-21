@@ -21,38 +21,42 @@ class _ChooseColorState extends State<ChooseColor> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Form(
-          child: Column(
-        children: [
-          const SizedBox(
-            height: 35,
-          ),
-          const Text(
-            'Choose app\'s theme color',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'QuickSand',
-              fontSize: 20,
-            ),
-          ),
-          const SizedBox(
-            height: 35,
-          ),
-          ColorListTile(
-              colorName: 'Purple',
-              chooseColor: _chooseColor,
-              pickedColor: pickedColor),
-          ColorListTile(
-              colorName: 'Pink',
-              chooseColor: _chooseColor,
-              pickedColor: pickedColor),
-          ColorListTile(
-              colorName: 'Green',
-              chooseColor: _chooseColor,
-              pickedColor: pickedColor),
-        ],
-      )),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Container(
+          child: Form(
+              child: Column(
+            children: [
+              SizedBox(
+                height: constraints.maxHeight * 0.05,
+              ),
+              const Text(
+                'Choose app\'s theme color',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'QuickSand',
+                  fontSize: 20,
+                ),
+              ),
+              SizedBox(
+                height: constraints.maxHeight * 0.05,
+              ),
+              ColorListTile(
+                  colorName: 'Purple',
+                  chooseColor: _chooseColor,
+                  pickedColor: pickedColor),
+              ColorListTile(
+                  colorName: 'Pink',
+                  chooseColor: _chooseColor,
+                  pickedColor: pickedColor),
+              ColorListTile(
+                  colorName: 'Green',
+                  chooseColor: _chooseColor,
+                  pickedColor: pickedColor),
+            ],
+          )),
+        );
+      },
     );
   }
 }

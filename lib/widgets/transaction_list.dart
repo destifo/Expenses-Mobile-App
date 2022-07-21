@@ -9,40 +9,43 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 350,
-      child: transactions.isEmpty
-          ? Column(
-              children: [
-                Text(
-                  'No transactions yet',
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                Container(
-                  height: 300,
-                  child: Image.asset(
-                    'assets/images/waiting.png',
-                    fit: BoxFit.cover,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return transactions.isEmpty
+            ? Column(
+                children: [
+                  Text(
+                    'No transactions yet',
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
-                ),
-              ],
-            )
-          : ListView.builder(
-              itemCount: transactions.length,
-              itemBuilder: (ctx, index) {
-                var e = transactions[index];
-                return TransactionCard(
+                  SizedBox(
+                    height: constraints.maxHeight * 0.1,
+                  ),
+                  Container(
+                    height: constraints.maxHeight * 0.7,
+                    child: Image.asset(
+                      'assets/images/waiting.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ],
+              )
+            : ListView.builder(
+                itemCount: transactions.length,
+                itemBuilder: (ctx, index) {
+                  var e = transactions[index];
+                  return TransactionCard(
                     transactionTitle: e.title,
                     date: e.date,
-                    transactionAmount: e.amount, 
-                    deleteTx: deleteTx, id: e.id,);
-              },
-              // shrinkWrap: true,
-              // children: transactions.map((e) {}).toList(),
-            ),
+                    transactionAmount: e.amount,
+                    deleteTx: deleteTx,
+                    id: e.id,
+                  );
+                },
+                // shrinkWrap: true,
+                // children: transactions.map((e) {}).toList(),
+              );
+      },
     );
   }
 }

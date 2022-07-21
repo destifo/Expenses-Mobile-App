@@ -5,10 +5,17 @@ import 'package:expenses_app_restarted/widgets/add_transaction.dart';
 import 'package:expenses_app_restarted/widgets/transaction_card.dart';
 import 'package:expenses_app_restarted/widgets/user_transactions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'screens/my_home_page.dart';
 
 void main() {
+  // To only enable portraiat mode
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  //   DeviceOrientation.portraitDown,
+  // ]);
   runApp(const MyApp());
 }
 
@@ -43,7 +50,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   void _deleteTransaction(String id) {
-    transactions.removeWhere((tx) => tx.id == id);
+    setState(() {
+      transactions.removeWhere((tx) => tx.id == id);
+    });
   }
 
   void _changeColor(String color) {

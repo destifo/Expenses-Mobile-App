@@ -55,15 +55,33 @@ class TransactionCard extends StatelessWidget {
               DateFormat.yMMMd().format(date),
               style: TextStyle(color: Colors.grey[600], fontSize: 15),
             ),
-            trailing: IconButton(
-                onPressed: () {
-                  deleteTx(id);
-                },
-                icon: Icon(
-                  Icons.delete,
-                  color: Theme.of(context).colorScheme.primary,
-                  size: 28,
-                )),
+            trailing: MediaQuery.of(context).size.width > 380
+                ? TextButton.icon(
+                    onPressed: () {
+                      deleteTx(id);
+                    },
+                    icon: Icon(
+                      Icons.delete,
+                      color: Theme.of(context).colorScheme.primary,
+                      size: 28,
+                    ),
+                    label: Text(
+                      "Delete",
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                          ),
+                    ))
+                : IconButton(
+                    onPressed: () {
+                      deleteTx(id);
+                    },
+                    icon: Icon(
+                      Icons.delete,
+                      color: Theme.of(context).colorScheme.primary,
+                      size: 28,
+                    )),
           ),
         ),
       ),

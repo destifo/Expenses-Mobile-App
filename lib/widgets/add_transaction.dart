@@ -44,75 +44,82 @@ class _AddTransactionState extends State<AddTransaction> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Container(
-        padding: const EdgeInsets.all(7),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            TextField(
-              decoration: const InputDecoration(labelText: "Title"),
-              controller: titleController,
-              onSubmitted: (_) {
-                _saveTransaction();
-              },
-            ),
-            TextField(
-              decoration: const InputDecoration(labelText: 'Amount'),
-              controller: amountController,
-              keyboardType:
-                  const TextInputType.numberWithOptions(decimal: true),
-              onSubmitted: (_) {
-                _saveTransaction();
-              },
-            ),
-            const SizedBox(
-              height: 35,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  _pickedDate == null
-                      ? const Text(
-                          'No Date Chosen',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        )
-                      : Text(
-                          'Picked Date: ${DateFormat.yMd().format(_pickedDate!)}',
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                  TextButton(
-                    child: Text(
-                      'Choose Date',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).primaryColor,
-                          fontSize: 17),
-                    ),
-                    onPressed: () {
-                      _openDatePicker();
-                    },
-                  )
-                ],
+      child: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.only(
+            top: 7,
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+            left: 7,
+            right: 7,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: <Widget>[
+              TextField(
+                decoration: const InputDecoration(labelText: "Title"),
+                controller: titleController,
+                onSubmitted: (_) {
+                  _saveTransaction();
+                },
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            TextButton(
-                onPressed: _saveTransaction,
-                child: const Text(
-                  'Add Transaction',
-                  style: TextStyle(color: Colors.amber, fontSize: 17),
-                )),
-          ],
+              TextField(
+                decoration: const InputDecoration(labelText: 'Amount'),
+                controller: amountController,
+                keyboardType:
+                    const TextInputType.numberWithOptions(decimal: true),
+                onSubmitted: (_) {
+                  _saveTransaction();
+                },
+              ),
+              const SizedBox(
+                height: 35,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    _pickedDate == null
+                        ? const Text(
+                            'No Date Chosen',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )
+                        : Text(
+                            'Picked Date: ${DateFormat.yMd().format(_pickedDate!)}',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                    TextButton(
+                      child: Text(
+                        'Choose Date',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor,
+                            fontSize: 17),
+                      ),
+                      onPressed: () {
+                        _openDatePicker();
+                      },
+                    )
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              TextButton(
+                  onPressed: _saveTransaction,
+                  child: const Text(
+                    'Add Transaction',
+                    style: TextStyle(color: Colors.amber, fontSize: 17),
+                  )),
+            ],
+          ),
         ),
       ),
     );

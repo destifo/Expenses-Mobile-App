@@ -41,7 +41,7 @@ class Chart extends StatelessWidget {
     return Card(
       elevation: 4,
       child: Container(
-        height: 150,
+        // height: 150,
         padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 6),
         child: Row(
           children: groupedTransactions.map((transactionData) {
