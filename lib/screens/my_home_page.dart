@@ -30,8 +30,26 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   bool _showChart = false;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance!.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
+    super.didChangeAppLifecycleState(state);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance!.removeObserver(this);
+    super.dispose();
+  }
 
   void changeChartSetting(val) {
     setState(() {
@@ -61,6 +79,72 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
+  List<Widget> _buildLandscapeContent(Widget switchButton,
+      MediaQueryData mediaQuery, PreferredSizeWidget appBar) {
+    return <Widget>[
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Show chart",
+            style:
+                Theme.of(context).textTheme.bodyLarge!.copyWith(fontSize: 19),
+          ),
+          switchButton,
+        ],
+      ),
+      _showChart
+          ? Container(
+              width: double.infinity,
+              margin: const EdgeInsets.all(10),
+              height: (mediaQuery.size.height -
+                      appBar.preferredSize.height -
+                      mediaQuery.padding.top) *
+                  0.65,
+              child: Chart(
+                recentTransactions: _recentTransactions,
+              ),
+            )
+          : SizedBox(
+              height: (mediaQuery.size.height -
+                      appBar.preferredSize.height -
+                      mediaQuery.padding.top) *
+                  0.8,
+              child: TransactionList(
+                transactions: widget.transactions,
+                deleteTx: widget.deleteTx,
+              ),
+            )
+    ];
+  }
+
+  List<Widget> _buildPortraitContent(
+      MediaQueryData mediaQuery, PreferredSizeWidget appBar) {
+    return <Widget>[
+      Container(
+        width: double.infinity,
+        margin: const EdgeInsets.all(10),
+        height: (mediaQuery.size.height -
+                appBar.preferredSize.height -
+                mediaQuery.padding.top) *
+            0.3,
+        child: Chart(
+          recentTransactions: _recentTransactions,
+        ),
+      ),
+      SizedBox(
+        height: (mediaQuery.size.height -
+                appBar.preferredSize.height -
+                mediaQuery.padding.top) *
+            0.6,
+        child: TransactionList(
+          transactions: widget.transactions,
+          deleteTx: widget.deleteTx,
+        ),
+      )
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final PreferredSizeWidget appBar = AppBar(
@@ -88,66 +172,9 @@ class _MyHomePageState extends State<MyHomePage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         // mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
-          if (!isLandscape)
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.all(10),
-              height: (mediaQuery.size.height -
-                      appBar.preferredSize.height -
-                      mediaQuery.padding.top) *
-                  0.3,
-              child: Chart(
-                recentTransactions: _recentTransactions,
-              ),
-            ),
-          if (!isLandscape)
-            SizedBox(
-              height: (mediaQuery.size.height -
-                      appBar.preferredSize.height -
-                      mediaQuery.padding.top) *
-                  0.6,
-              child: TransactionList(
-                transactions: widget.transactions,
-                deleteTx: widget.deleteTx,
-              ),
-            ),
+          if (!isLandscape) ..._buildPortraitContent(mediaQuery, appBar),
           if (isLandscape)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "Show chart",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyLarge!
-                      .copyWith(fontSize: 19),
-                ),
-                switchButton,
-              ],
-            ),
-          if (isLandscape)
-            _showChart
-                ? Container(
-                    width: double.infinity,
-                    margin: const EdgeInsets.all(10),
-                    height: (mediaQuery.size.height -
-                            appBar.preferredSize.height -
-                            mediaQuery.padding.top) *
-                        0.65,
-                    child: Chart(
-                      recentTransactions: _recentTransactions,
-                    ),
-                  )
-                : SizedBox(
-                    height: (mediaQuery.size.height -
-                            appBar.preferredSize.height -
-                            mediaQuery.padding.top) *
-                        0.8,
-                    child: TransactionList(
-                      transactions: widget.transactions,
-                      deleteTx: widget.deleteTx,
-                    ),
-                  ),
+            ..._buildLandscapeContent(switchButton, mediaQuery, appBar),
         ],
       ),
     ));
